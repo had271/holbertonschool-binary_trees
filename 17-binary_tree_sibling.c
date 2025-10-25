@@ -21,5 +21,6 @@ binary_tree_t *binary_tree_sibling(binary_tree_t *node)
 	}
 	if (parent->left == NULL)
 		return (NULL);
+
 	return (parent->left);
 }
