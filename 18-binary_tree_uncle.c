@@ -1,34 +1,23 @@
-#include <stdlib.h>
-#include "hash_tables.h"
+#include "binary_trees.h"
 
 /**
- * hash_table_create - Creates a hash table
- * @size: Size of the array
+ * binary_tree_uncle - Finds the uncle of a node
+ * @node: Pointer to the node to find the uncle
  *
- * Return: Pointer to the newly created hash table, or NULL on failure
+ * Return: Pointer to the uncle node, or NULL if no uncle or node is NULL
  */
-hash_table_t *hash_table_create(unsigned long int size)
+binary_tree_t *binary_tree_uncle(binary_tree_t *node)
 {
-    hash_table_t *ht;
-    unsigned long int i;
+    binary_tree_t *parent, *grandparent;
 
-    if (size == 0)
+    if (node == NULL || node->parent == NULL || node->parent->parent == NULL)
         return (NULL);
 
-    ht = malloc(sizeof(hash_table_t));
-    if (ht == NULL)
-        return (NULL);
+    parent = node->parent;
+    grandparent = parent->parent;
 
-    ht->size = size;
-    ht->array = malloc(sizeof(hash_node_t *) * size);
-    if (ht->array == NULL)
-    {
-        free(ht);
-        return (NULL);
-    }
-
-    for (i = 0; i < size; i++)
-        ht->array[i] = NULL;
-
-    return (ht);
+    if (grandparent->left == parent)
+        return (grandparent->right);
+    else
+        return (grandparent->left);
 }
